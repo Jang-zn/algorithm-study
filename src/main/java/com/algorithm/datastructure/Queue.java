@@ -20,7 +20,7 @@ public class Queue {
                 case "dequeue":
                         System.out.println("Dequeue : " + queue.get(queue.size()-1));
                         dequeue();
-                    if (queue.size() > 0) {
+                    if (!queue.isEmpty()) {
                         System.out.println(queue);
                     } else {
                         System.out.println("null");
