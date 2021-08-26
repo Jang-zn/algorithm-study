@@ -6,11 +6,16 @@ public class test2 {
         list.addNode(1);
         list.addNode(2);
         list.addNode(3);
-        list.addNode(4);
-        list.addNode(5);
         list.printAll();
-        System.out.println(list.searchFromHead(5).data);
-        System.out.println(list.searchFromTail(3).data);
 
+        list.insertNext(10,1);
+        list.insertNext(20,2);
+        list.insertNext(30,3);
+        list.insertPrev(-10,1);
+        list.insertPrev(-20,2);
+        list.insertPrev(-30,3);
+        list.insertNext(100,7);
+        list.insertPrev(-100,6);
+        list.printAll();
     }
 }

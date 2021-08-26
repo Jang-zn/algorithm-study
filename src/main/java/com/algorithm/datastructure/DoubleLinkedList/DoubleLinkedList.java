@@ -79,4 +79,46 @@ public class DoubleLinkedList<T> {
         }
         return null;
     }
+
+
+    //노드 앞에 insert
+    public void insertPrev(T data, T isData){
+        Node<T> search = searchFromHead(isData);
+        Node<T> insert = new Node<T>(data);
+        if(search==null){
+            search = this.head;
+            search.prev = insert;
+            insert.next = search;
+            this.head = insert;
+        }else if(search.prev==null){
+            search.prev = insert;
+            insert.next = search;
+            this.head = insert;
+        }else{
+            insert.next = search;
+            insert.prev = search.prev;
+            search.prev.next = insert;
+            search.prev = insert;
+        }
+    }
+    //노드 뒤에 insert
+    public void insertNext(T data, T isData){
+        Node<T> search = searchFromHead(isData);
+        Node<T> insert = new Node<T>(data);
+        if(search==null){
+            search = this.tail;
+            search.next = insert;
+            insert.prev = search;
+            this.tail = insert;
+        }else if(search.next==null){
+            search.next = insert;
+            insert.prev = search;
+            this.tail = insert;
+        }else{
+            insert.prev = search;
+            insert.next = search.next;
+            search.next.prev = insert;
+            search.next = insert;
+        }
+    }
 }
