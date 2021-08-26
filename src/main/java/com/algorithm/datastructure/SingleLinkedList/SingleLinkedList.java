@@ -39,19 +39,55 @@ public class SingleLinkedList<T> {
         }
     }
 
-    //연결리스트 삽입 (int형 가정 정렬방식으로 구현)
-    public void insertIntNode(T data){
+    //연결리스트 탐색
+    public Node<T> searchData(T isData){
         Node<T> node = this.head;
-        Node<T> insert = new Node<T>(data);
-        while((int)(node.data)<=(int)(insert.data)){
-            if(node.next==null){
-                node.next = insert;
-            }else {
-                insert.next = node.next;
-                Node temp = node.next;
-                node.next = insert;
-                node=temp;
+        //head와 일치할경우
+        if(node.data.equals(isData)){
+            return node;
+        }
+        //탐색하면서 일치하는거 찾기
+        while(node.next!=null){
+            if(node.next.data.equals(isData)){
+                return node.next;
+            }else{
+                node=node.next;
             }
         }
+        //없으면 null
+        return null;
+    }
+
+    //연결리스트 삽입
+    public void insertIntNode(T data, T isData){
+        Node<T> insert = new Node<T>(data);
+        Node<T> search = searchData(isData);
+
+        //있으면 뒤에 넣기
+        if(search!=null){
+        insert.next = search.next;
+        search.next = insert;
+
+        //없으면 맨끝에 넣기
+        }else{
+            addNode(data);
+        }
+    }
+
+    //연결리스트 삭제
+    public boolean deleteNode(T data){
+        Node<T> node = this.head;
+        //헤드랑 일치하면 삭제
+        if(node.data.equals(data)) {
+            this.head = node.next;
+            return true;
+        }
+        while(node.next!=null){
+            if(node.next.data.equals(data)){
+                node.next = node.next.next;
+                return true;
+            }
+        }
+        return false;
     }
 }
