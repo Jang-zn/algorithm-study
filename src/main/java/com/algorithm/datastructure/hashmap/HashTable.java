@@ -4,7 +4,7 @@ public class HashTable {
 
     private Slot[] slots;
 
-    private class Slot {
+    class Slot {
         String key;
         String value;
         public Slot (String key, String value){
