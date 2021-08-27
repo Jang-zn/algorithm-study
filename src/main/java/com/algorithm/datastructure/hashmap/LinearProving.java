@@ -61,7 +61,42 @@ public class LinearProving {
 
     //data 가져오기
     public String get(String key){
-        return this.slots[hashFunction(key)].value;
+        int index = hashFunction(key);
+        int indexCheck = index;
+        int startIndex=0;
+        Slot check = this.slots[index];
+        if(check!=null) {
+            if (check.key.equals(key)) {
+                return check.value;
+            } else {
+                index++;
+                while (!check.key.equals(key)) {
+                    if (index < this.slots.length) {
+                        check = this.slots[index];
+                        if (check.key.equals(key)) {
+                            return check.value;
+                        }else{
+                            index++;
+                        }
+                    } else {
+                        if (indexCheck != startIndex) {
+                            check = this.slots[startIndex];
+                            if (check.key.equals(key)) {
+                                return check.value;
+                            }else{
+                                startIndex++;
+                            }
+                        } else {
+                            return null;
+                        }
+                    }
+
+                }
+                return null;
+            }
+        }else{
+            return null;
+        }
     }
 
     //간단한 해쉬함수 - 디비전 방식(나머지 이용) : 충돌(Collision) 발생 처리방식은 다른 구조에서
@@ -95,7 +130,8 @@ public class LinearProving {
         lp.put("cc","33");
         lp.put("dd","44");
         lp.printAll();
-
+        System.out.println(lp.get("a"));
+        System.out.println(lp.get("aa"));
     }
 
 }
