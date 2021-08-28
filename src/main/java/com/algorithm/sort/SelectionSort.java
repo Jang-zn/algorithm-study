@@ -3,10 +3,7 @@ package com.algorithm.sort;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class BubbleSort {
-    int count = 0;
-    boolean swap = false;
-
+public class SelectionSort {
     public static void main(String[] args) {
         ArrayList<Integer> list = new ArrayList();
         for(int i=0;i<20;i++){
@@ -16,20 +13,17 @@ public class BubbleSort {
         System.out.println(list);
 
     }
+
     public static ArrayList<Integer> sort(ArrayList<Integer> list){
-        for(int i =0;i<list.size()-1;i++){
-            boolean check = false;
-            for(int j = 0; j<list.size()-i;j++){
-                if(list.get(j)>list.get(j+1)){
-                    Collections.swap(list,j,j+1);
-                    check=true;
+        for(int i=0; i<list.size()-1;i++){
+            int minIdx=i;
+            for(int j=i+1;j<list.size();j++){
+                if(list.get(minIdx)>list.get(j)){
+                    minIdx = j;
                 }
             }
-            if(!check){
-                break;
-            }
+            Collections.swap(list,i,minIdx);
         }
         return list;
     }
-
 }
