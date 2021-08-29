@@ -1,28 +1,33 @@
 package com.algorithm.search;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class BinarySearch {
     public static void main(String[] args) {
         ArrayList<Integer> list = new ArrayList<Integer>();
-        for(int i=1; i<1000;i++){
-            list.add(i);
+        for(int i=0; i<100000;i++){
+            list.add((int)(Math.random()*100000+1));
         }
+        Collections.sort(list);
         Scanner sc = new Scanner(System.in);
+        System.out.println(list);
         System.out.print("찾을 숫자 입력<1000 : ");
         int val = Integer.parseInt(sc.nextLine());
+
         //LinearSearch
-        for(int i=0;i<1000;i++){
+        for(int i=0;i<list.size();i++){
             int lcount=i+1;
             if(list.get(i)==val){
                 System.out.println(list.get(i));
                 System.out.println("lCount : "+lcount);
                 break;
             }
-            if(i==999){
+            if(i==list.size()-1){
                 System.out.println(-1);
                 System.out.println("lCount : "+lcount);
+                break;
             }
         }
 
