@@ -9,7 +9,7 @@ public class BubbleSort {
 
     public static void main(String[] args) {
         ArrayList<Integer> list = new ArrayList();
-        for(int i=0;i<20;i++){
+        for(int i=0;i<3;i++){
             list.add((int)(Math.random()*100)+1);
         }
         list = sort(list);
@@ -19,7 +19,7 @@ public class BubbleSort {
     public static ArrayList<Integer> sort(ArrayList<Integer> list){
         for(int i =0;i<list.size()-1;i++){
             boolean check = false;
-            for(int j = 0; j<list.size()-i;j++){
+            for(int j = 0; j<list.size()-1;j++){
                 if(list.get(j)>list.get(j+1)){
                     Collections.swap(list,j,j+1);
                     check=true;
