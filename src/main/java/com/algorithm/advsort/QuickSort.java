@@ -5,10 +5,9 @@ import java.util.ArrayList;
 public class QuickSort {
     public static void main(String[] args) {
         ArrayList<Integer> list = new ArrayList<Integer>();
-        for(int i=0;i<10;i++){
-            list.add((int)(Math.random()*200)+1);
+        for(int i=0;i<1000;i++){
+            list.add((int)(Math.random()*10000)+1);
         }
-        System.out.println(list);
         System.out.println(qSort(list));
     }
 
