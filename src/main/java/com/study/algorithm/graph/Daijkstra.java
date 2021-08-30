@@ -58,7 +58,6 @@ public class Daijkstra {
                     continue;
                 }
 
-
             ArrayList<Vertex> vertexList = graph.get(currVertex);
 
             //이동할 노드의 정보

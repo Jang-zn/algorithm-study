@@ -73,4 +73,6 @@ public class S4_2108_통계학 {
         return maxValue-minValue;
     }
 
+
+
 }
