@@ -1,6 +1,7 @@
 package com.problem.algorithm.greedy;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class S2_1541_잃어버린괄호 {
@@ -18,12 +19,23 @@ public class S2_1541_잃어버린괄호 {
     //출력
     //첫째 줄에 정답을 출력한다.
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         //문제 받아서 파싱
-
+        String[] pr = br.readLine().split("-");
         //괄호처리후 출력
-
-
+        int first=0;
+        int minus=0;
+        for(int i=0;i<pr.length;i++){
+            String[] vals = pr[i].split("\\+");
+            for(String ss : vals){
+                if(i==0){
+                    first+=Integer.parseInt(ss);
+                }else{
+                    minus-=Integer.parseInt(ss);
+                }
+            }
+        }
+        System.out.println(first+minus);
     }
 }
