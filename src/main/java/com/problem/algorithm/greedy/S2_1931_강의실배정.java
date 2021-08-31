@@ -24,35 +24,82 @@ public class S2_1931_강의실배정 {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
+//        int N = Integer.parseInt(br.readLine());
         ArrayList<Meeting> meetingList = new ArrayList<Meeting>();
-        for(int i=0;i<N;i++){
-            String[] temp = br.readLine().split(" ");
-            meetingList.add(new Meeting(Integer.parseInt(temp[0]),Integer.parseInt(temp[1])));
-        }
+//        for(int i=0;i<N;i++){
+//            String[] temp = br.readLine().split(" ");
+//            meetingList.add(new Meeting(Integer.parseInt(temp[0]),Integer.parseInt(temp[1])));
+//        }
+        meetingList.add(new Meeting(1,4));
+        meetingList.add(new Meeting(3,5));
+        meetingList.add(new Meeting(0,6));
+        meetingList.add(new Meeting(5,7));
+        meetingList.add(new Meeting(3,8));
+        meetingList.add(new Meeting(5,9));
+        meetingList.add(new Meeting(6,10));
+        meetingList.add(new Meeting(8,11));
+        meetingList.add(new Meeting(8,12));
+        meetingList.add(new Meeting(6,6));
+        meetingList.add(new Meeting(4,4));
+
+
+
         Collections.sort(meetingList);
-
-
-
+        System.out.println(meetingList.toString());
+        schedule(meetingList);
     }
 
     public static class Meeting implements Comparable<Meeting>{
         int start;
         int end;
         int range;
+        int sort;
         public Meeting(int start, int end){
             this.start = start;
             this.end = end;
             this.range = end-start;
+            this.sort = start+range;
         }
 
         @Override
         public int compareTo(Meeting m) {
-            if(this.start==m.start) {
-                return this.range-m.range;
-            }else {
-                return this.start-m.start;
+            return this.end-m.end;
+        }
+
+        @Override
+        public String toString() {
+            return "["+start+" "+end+"]";
+        }
+    }
+
+    public static void schedule(ArrayList<Meeting> meetingList){
+        int count=1;
+        Meeting currMeeting = meetingList.get(0);
+        for(int i=1;i<meetingList.size();i++){
+            Meeting nextMeeting =meetingList.get(i);
+
+            if(i==1&&currMeeting.range>nextMeeting.range){
+                currMeeting=nextMeeting;
+                continue;
+            }
+
+            if(nextMeeting.start!= nextMeeting.end) {
+                if (currMeeting.end <= nextMeeting.start) {
+                    //System.out.println(nextMeeting+"O");
+                    currMeeting = nextMeeting;
+                    count++;
+
+                }else{
+                    //System.out.println(nextMeeting+"X");
+                }
+            }else{
+                if(currMeeting.end <= nextMeeting.start){
+                    //System.out.println(nextMeeting + "O");
+                    currMeeting = nextMeeting;
+                    count++;
+                }
             }
         }
+        System.out.println(count);
     }
 }
