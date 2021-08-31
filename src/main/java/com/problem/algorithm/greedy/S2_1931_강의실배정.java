@@ -63,7 +63,11 @@ public class S2_1931_강의실배정 {
 
         @Override
         public int compareTo(Meeting m) {
-            return this.end-m.end;
+            if(this.end!=m.end) {
+                return this.end - m.end;
+            }else{
+                return this.start - m.start;
+            }
         }
 
         @Override
@@ -77,20 +81,12 @@ public class S2_1931_강의실배정 {
         Meeting currMeeting = meetingList.get(0);
         for(int i=1;i<meetingList.size();i++){
             Meeting nextMeeting =meetingList.get(i);
-
-            if(i==1&&currMeeting.range>nextMeeting.range){
-                currMeeting=nextMeeting;
-                continue;
-            }
-
             if(nextMeeting.start!= nextMeeting.end) {
                 if (currMeeting.end <= nextMeeting.start) {
                     //System.out.println(nextMeeting+"O");
                     currMeeting = nextMeeting;
                     count++;
 
-                }else{
-                    //System.out.println(nextMeeting+"X");
                 }
             }else{
                 if(currMeeting.end <= nextMeeting.start){
