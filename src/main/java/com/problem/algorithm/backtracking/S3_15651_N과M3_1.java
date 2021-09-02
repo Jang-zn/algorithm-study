@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class S3_15651_N과M3 {
+public class S3_15651_N과M3_1 {
     static int N;
     static int M;
     static int[] list;
