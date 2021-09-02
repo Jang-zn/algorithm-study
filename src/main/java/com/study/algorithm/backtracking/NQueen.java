@@ -3,14 +3,16 @@ package com.study.algorithm.backtracking;
 import java.util.ArrayList;
 
 public class NQueen {
-
+    static int count = 0;
     public static void main(String[] args) {
-        nqueen(4, 0, new ArrayList<Integer>());
+        nqueen(4,0, new ArrayList<Integer>());
+        System.out.println(count);
     }
 
     public static void nqueen(int N, int currRow, ArrayList<Integer> queenList){
         if(currRow==N){
             System.out.println(queenList);
+            count++;
             return;
         }
         for(int i=0; i<N;i++){
