@@ -24,16 +24,23 @@ public class S4_11652_카드 {
     }
 
     public static void getMax(long[] list){
-        for(int i=0;i<list.length;i++){
+        boolean check = true;
+        //초기화
+        currval=list[0];
+        count=1;
+        maxCount=1;
+        maxValue=list[0];
+        //1번부터 검사
+        for(int i=1;i<list.length;i++){
             if(currval!=list[i]) {
-                if(count>maxCount){
-                    maxCount = count;
-                    maxValue = currval;
-                }
                 count=1;
                 currval = list[i];
             }else{
                 count++;
+                if(count>maxCount) {
+                    maxCount = count;
+                    maxValue = currval;
+                }
             }
         }
     }
