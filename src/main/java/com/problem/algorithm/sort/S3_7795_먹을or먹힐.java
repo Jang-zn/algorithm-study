@@ -30,6 +30,9 @@ public class S3_7795_먹을or먹힐 {
             solve(0);
             System.out.println(count);
             count=0;
+            solve2();
+            System.out.println(count);
+            count=0;
         }
     }
     public static void solve(int nIdx){
@@ -62,5 +65,34 @@ public class S3_7795_먹을or먹힐 {
                 return binary(x,mid,r);
             }
         }
+    }
+
+    public static void solve2(){
+        for(int nIdx=0;nIdx<n.length;nIdx++) {
+            int x = n[nIdx];
+            if (m[m.length - 1] < x) {
+                count += m.length;
+            } else {
+                int result = binary2(0, m.length - 1, n[nIdx]);
+                count += result;
+            }
+        }
+    }
+
+    public static int binary2(int l, int r, int x){
+        //배열에서 x미만의 수 중 가장 큰 값의 인덱스(mid)+1을 반환하는 함수
+        //x미만의 수가 없다면 l을 반환
+        //강사가 인덱스를 1~N으로 자꾸 잡아서 존나 헷갈리네 ㅆ비ㅏㄹ년아
+        int result = l;
+        while(l<=r){
+            int mid = (l+r)/2;
+            if(m[mid]<x){
+                result = mid+1;//(ea)
+                l=mid+1;
+            }else{
+                r = mid-1;
+            }
+        }
+        return result;
     }
 }
