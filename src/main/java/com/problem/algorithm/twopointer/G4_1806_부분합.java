@@ -35,10 +35,6 @@ public class G4_1806_부분합 {
             if (sum >= S) {
                 length = Math.min(length, Math.abs(L - R) + 1);
             }
-
-            System.out.println(L+" "+R);
-            System.out.println(sum);
-            System.out.println(length);
         }
         if (length == Integer.MAX_VALUE) {
             length=0;
