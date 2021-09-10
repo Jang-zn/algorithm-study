@@ -1,4 +1,4 @@
-package com.problem.algorithm.sort;
+package com.problem.algorithm.binarysearch;
 
 import java.io.*;
 import java.util.ArrayList;
