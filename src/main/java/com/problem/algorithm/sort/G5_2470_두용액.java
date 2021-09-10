@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class G5_2470_두용액 {
-    static ArrayList<Integer> acid = new ArrayList<Integer>();
-    static ArrayList<Integer> alk = new ArrayList<Integer>();
+    static ArrayList<Integer> list = new ArrayList<Integer>();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -14,95 +13,54 @@ public class G5_2470_두용액 {
         String[] temp = br.readLine().split(" ");
         for(int i=0;i<N;i++){
            int solution = Integer.parseInt(temp[i]);
-           if(solution>0){
-               acid.add(solution);
-           }else{
-               alk.add(solution);
-           }
+           list.add(solution);
         }
-        Collections.sort(acid);
-        Collections.sort(alk);
-        print();
+        Collections.sort(list);
+        int[]sol = calc();
+        System.out.println(sol[0]+" "+sol[1]);
+
     }
 
     public static int[] calc(){
-        int[] acal = new int[2];
+        int[] pair = new int[2];
         int min = Integer.MAX_VALUE;
-        for(int i=0;i<acid.size();i++){
-            int ac = acid.get(i);
-            int al = binary(ac,0,alk.size()-1);
-            int sum = Math.abs(ac+al);
-            if(min>sum){
-                min=sum;
-                acal[0]=ac;
-                acal[1]=al;
+        for(int i=0;i<list.size();i++){
+            int x = list.get(i);
+            int y = binary(-1*x,i+1,list.size()-1);
+            if(Math.abs(min)>Math.abs(x+y)&&x!=y) {
+                pair[0] = x;
+                pair[1] = y;
+                min=x+y;
             }
         }
-        return acal;
+        return pair;
     }
 
-    public static int binary(int ac, int l, int r){
-        //ac랑 절대값이 가장 가까운 값을 alk에서 찾아서 그 값(alk.get(idx))을 반환해야됨
-        //idx는 (l+r)/2=m 일수도 있고 m-1일수도 있고 m+1일수도 있다.
-        int result=alk.get(l);
-        while(l<=r){
-            int m =(l+r)/2;
-            if(-1*ac==alk.get(m)){
-                result = alk.get(m);
-                break;
-            }else {
-                ac=-1*ac;
-                int mid = alk.get(m);
-                if(ac>mid){
-                    l=m+1;
-                    result = mid;
+    public static int binary(int x, int l, int r){
+        int result=list.get(r);
+        while(l<=r) {
+            if(l==r){
+                if(list.get(l-1)!=-1*x&&list.get(l)!=-1*x) {
+                    int a = Math.abs(x-list.get(l));
+                    int b = Math.abs(x-list.get(l-1));
+                    result = a < b ? list.get(l) : list.get(l - 1);
                 }else{
-                    r=m-1;
-                    result = mid;
+                    result = list.get(l)==-1*x?list.get(l-1):list.get(l);
                 }
+                break;
+            }
+            int m = (l+r)/2;
+            int midVal = list.get(m);
+            if(midVal>x){
+                r = m;
+            }else if(midVal<x){
+                l=m+1;
+            }else{
+                result = midVal;
+                break;
             }
         }
-        return result;
-    }
 
-    public static void print(){
-        if(acid.size()>=2&&alk.size()>=2) {
-            int acac = acid.get(0) + acid.get(1);
-            int alal = Math.abs(alk.get(alk.size() - 1) + alk.get(alk.size() - 2));
-            int[] acal = calc();
-            int acalSum = Math.abs(acal[0] + acal[1]);
-            int min = Math.min(acac, alal) > acalSum ? acalSum : Math.min(acac, alal);
-            if (min == acalSum) {
-                System.out.println(acal[1] + " " + acal[0]);
-            } else if (min == acac) {
-                System.out.println(acid.get(0) + " " + acid.get(1));
-            } else {
-                System.out.println(alk.get(alk.size() - 2) + " " + alk.get(alk.size() - 1));
-            }
-        }else if(acid.size()==1&&alk.size()==1){
-            System.out.println(acid.get(0)+alk.get(0));
-        }else if(acid.size()==1){
-            int alal = Math.abs(alk.get(alk.size()-1)+alk.get(alk.size()-2));
-            int acal = Math.abs(acid.get(0)+alk.get(alk.size()-1));
-            if(alal<acal){
-                System.out.println(alk.get(alk.size()-1)+" "+alk.get(alk.size()-2));
-            }else{
-                System.out.println(alk.get(alk.size()-1)+" "+acid.get(0));
-            }
-        }else if(alk.size()==1){
-            int acac = acid.get(0)+acid.get(1);
-            int acal = Math.abs(acid.get(0)+alk.get(0));
-            if(acac<acal){
-                System.out.println(acid.get(0)+" "+acid.get(1));
-            }else{
-                System.out.println(alk.get(0)+" "+acid.get(0));
-            }
-        }else{
-            if(alk.size()==0) {
-                System.out.println(acid.get(0)+" "+acid.get(1));
-            }else {
-                System.out.println(alk.get(alk.size()-2)+" "+alk.get(alk.size()-1));
-            }
-        }
+        return result;
     }
 }
