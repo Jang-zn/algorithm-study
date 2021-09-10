@@ -28,19 +28,14 @@ public class G5_2470_두용액3 {
         int L=0;
         while(L!=R){
             int sum = list.get(L)+list.get(R);
+            if(Math.abs(sum)<min){
+                min=Math.abs(sum);
+                pair[0]=list.get(L);
+                pair[1]=list.get(R);
+            }
             if(sum>0){
-                if(sum<min){
-                    min=sum;
-                    pair[0]=list.get(L);
-                    pair[1]=list.get(R);
-                }
                 R--;
             }else if(sum<0){
-                if(Math.abs(sum)<min){
-                    min=Math.abs(sum);
-                    pair[0]=list.get(L);
-                    pair[1]=list.get(R);
-                }
                 L++;
             }else{
                 pair[0]=list.get(L);
