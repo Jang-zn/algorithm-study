@@ -1,6 +1,6 @@
-package com.problem.algorithm;
+package com.problem.algorithm.ct;
 
-public class t4 {
+public class 카카오p4 {
 
     public static void main(String[] args) {
         int[] info = {2,1,1,1,0,0,0,0,0,0,0};

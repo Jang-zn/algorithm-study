@@ -1,11 +1,11 @@
-package com.problem.algorithm;
+package com.problem.algorithm.ct;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class t3 {
+public class 카카오p3 {
     public static void main(String[] args) {
 
     }

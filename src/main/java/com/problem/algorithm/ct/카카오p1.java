@@ -1,10 +1,10 @@
-package com.problem.algorithm;
+package com.problem.algorithm.ct;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class t1 {
+public class 카카오p1 {
     public static void main(String[] args) {
         String[] report = {"muzi frodo", "apeach frodo", "frodo neo", "muzi neo", "apeach muzi"};
         String[] id_list = {"muzi", "frodo", "apeach", "neo"};

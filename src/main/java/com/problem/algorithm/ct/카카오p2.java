@@ -1,8 +1,8 @@
-package com.problem.algorithm;
+package com.problem.algorithm.ct;
 
 import java.util.ArrayList;
 
-public class t2 {
+public class 카카오p2 {
 
 
     public static void main(String[] args) {
