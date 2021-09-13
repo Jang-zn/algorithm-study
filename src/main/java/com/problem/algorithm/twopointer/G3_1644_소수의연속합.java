@@ -7,24 +7,28 @@ public class G3_1644_소수의연속합 {
 
     static int count;
     static int currSum;
+    static ArrayList<Integer> prime = new ArrayList<Integer>();
+    //
+    static int MAX = 4000000;
+    static boolean[] array = new boolean[MAX + 1];
+
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int N = Integer.parseInt(br.readLine());
+        calPrime();
+        setPrime();
         solve(N);
         System.out.println(count);
     }
 
     public static void solve(int N){
-        //소수구하기
-        ArrayList<Integer> prime = prime(N);
-
         //투포인터
         int r=0;
         int l=0;
         currSum = prime.get(l);
-        while(l<=r){
+        while(l<=r&&r< prime.size()-1){
             if(currSum==N){
                 count++;
                 currSum-=prime.get(l);
@@ -39,24 +43,24 @@ public class G3_1644_소수의연속합 {
         }
     }
 
-    public static ArrayList<Integer> prime(int N){
-        ArrayList<Integer> result = new ArrayList<Integer>();
-        boolean[] check = new boolean[N+1];
-        int sqrt = (int) Math.sqrt(N);
+    public static void calPrime() {
+        int sqrt = (int) Math.sqrt(MAX);
         for (int i = 2; i <= sqrt; i++) {
-            if (check[i]) {
+            if (array[i]) {
                 continue;
             }
 
-            for (int j = i + i; j <= N; j += i) {
-                check[j] = true;
-            }
-
-            if(!check[i]&&!result.contains(i)){
-                result.add(i);
+            for (int j = i + i; j <= MAX; j += i) {
+                array[j] = true;
             }
         }
-        System.out.println(result);
-        return result;
+    }
+
+    public static void setPrime() {
+        for (int i = 2; i <= MAX; i++) {
+            if (!array[i]) {
+                prime.add(i);
+            }
+        }
     }
 }
