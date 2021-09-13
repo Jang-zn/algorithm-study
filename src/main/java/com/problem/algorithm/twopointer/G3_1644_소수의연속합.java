@@ -22,37 +22,35 @@ public class G3_1644_소수의연속합 {
 
         //투포인터
         int r=0;
-        for(int l=0;l<prime.size();l++){
-            if(prime.get(l)==N) {
+        int l=0;
+        currSum = prime.get(l);
+        while(l<=r&&r<prime.size()&&l<prime.size()){
+            if(currSum==N){
                 count++;
-                continue;
-            }
-            currSum = prime.get(l);
-            r=l;
-            while(r< prime.size()-1){
+                currSum-=prime.get(l);
+                l++;
+            }else if(currSum<N){
                 r++;
                 currSum+=prime.get(r);
-                if(currSum==N){
-                    count++;
-                    break;
-                }
+            }else{
+                currSum-=prime.get(l);
+                l++;
             }
         }
     }
 
     public static ArrayList<Integer> prime(int N){
         ArrayList<Integer> result = new ArrayList<Integer>();
+        result.add(2);
         boolean[] check = new boolean[N+1];
         for(int i=2;i<N+1;i++){
-            if(!result.isEmpty()) {
-                for (int j = result.get(result.size() - 1); j < i; j++) {
-                    if (i % j == 0) {
-                        check[i] = true;
-                        break;
-                    }
-                }
+            for (int j = 0; j < result.size(); j++) {
+                 if (i % result.get(j) == 0) {
+                    check[i] = true;
+                    break;
+                 }
             }
-            if(!check[i]){
+            if(!check[i]&&!result.contains(i)){
                 result.add(i);
             }
         }
