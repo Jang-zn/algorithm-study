@@ -24,7 +24,7 @@ public class G3_1644_소수의연속합 {
         int r=0;
         int l=0;
         currSum = prime.get(l);
-        while(l<=r&&r<prime.size()&&l<prime.size()){
+        while(l<=r){
             if(currSum==N){
                 count++;
                 currSum-=prime.get(l);
@@ -41,19 +41,22 @@ public class G3_1644_소수의연속합 {
 
     public static ArrayList<Integer> prime(int N){
         ArrayList<Integer> result = new ArrayList<Integer>();
-        result.add(2);
         boolean[] check = new boolean[N+1];
-        for(int i=2;i<N+1;i++){
-            for (int j = 0; j < result.size(); j++) {
-                 if (i % result.get(j) == 0) {
-                    check[i] = true;
-                    break;
-                 }
+        int sqrt = (int) Math.sqrt(N);
+        for (int i = 2; i <= sqrt; i++) {
+            if (check[i]) {
+                continue;
             }
+
+            for (int j = i + i; j <= N; j += i) {
+                check[j] = true;
+            }
+
             if(!check[i]&&!result.contains(i)){
                 result.add(i);
             }
         }
+        System.out.println(result);
         return result;
     }
 }
