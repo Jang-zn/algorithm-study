@@ -1,13 +1,14 @@
 package com.problem.algorithm.twopointer;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class S1_15565_귀여운라이언 {
 
     static int N;
     static int M;
     static int[] problem;
-    static int[] sol;
+    static ArrayList<Integer> sol;
     static int min=Integer.MAX_VALUE;
 
     public static void main(String[] args) throws IOException {
@@ -18,41 +19,26 @@ public class S1_15565_귀여운라이언 {
         M = Integer.parseInt(temp[1]);
         temp = br.readLine().split(" ");
         problem = new int[N];
-        sol=new int[N];
+        sol = new ArrayList<Integer>();
         for (int i = 0; i < N; i++) {
             problem[i] = Integer.parseInt(temp[i]);
-            int count=0;
             if(problem[i]==1){
-                count++;
-                sol[i]=count;
+                sol.add(i);
             }
+
         }
         solve();
         System.out.println(min);
     }
 
     public static void solve(){
-        int r=0;
-        int count = 0;
-        for (int l = 0; l < N; l++) {
-            if(problem[l]!=1){
-                continue;
-            }else{
-                count++;
-            }
-            while(r<N-1){
-                r++;
-                if(problem[r]==1){
-                    count++;
-                }
-                if(count==M){
-                    min = Math.min(min,r-l+1);
-                    count-=2;
-                    break;
-                }
-            }
+        int l=0;
+        int r=l+M-1;
+        while(r<sol.size()){
+            min = Math.min(min,sol.get(r)-sol.get(l)+1);
+            l++;
+            r++;
         }
-
         if(min==Integer.MAX_VALUE){
             min=-1;
         }
