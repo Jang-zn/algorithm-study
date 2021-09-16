@@ -32,19 +32,29 @@ public class S1_15565_귀여운라이언 {
     }
 
     public static void solve(){
-        int l=0;
         int r=0;
         int count = 0;
-        while(l<=r){
-            if(problem[l]==1){
-                count++;
-
+        for (int l = 0; l < N; l++) {
+            if(problem[l]!=1){
+                continue;
             }else{
-                l++;
+                count++;
+            }
+            while(r<N-1){
+                r++;
+                if(problem[r]==1){
+                    count++;
+                }
+                if(count==M){
+                    min = Math.min(min,r-l+1);
+                    count--;
+                    break;
+                }
             }
         }
-        if(count==Integer.MAX_VALUE){
-            count=-1;
+
+        if(min==Integer.MAX_VALUE){
+            min=-1;
         }
     }
 }
