@@ -47,7 +47,7 @@ public class S1_15565_귀여운라이언 {
                 }
                 if(count==M){
                     min = Math.min(min,r-l+1);
-                    count--;
+                    count-=2;
                     break;
                 }
             }
