@@ -40,14 +40,34 @@ public class S1_7576_토마토 {
     public static void solve(){
         //탐색
         for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                //양배추고, 방문하지 않았다면
+            for (int j = 0; j < M; j++) {
+                //익을수 있는 위치인지 확인(0이고 안막혀있음)
+                if(problem[i][j]>=0&&!isOkay(i,j)){
+                    max=-1;
+                    return;
+                }
+                //양배추고, 방문하지 않았으면
                 if(problem[i][j]==1&&visit[i][j]==-1){
                     search(i,j);
                 }
             }
         }
 
+    }
+    public static boolean isOkay(int i, int j){
+        boolean check = false;
+        for(int l=0; l<4; l++){
+            int mr = i+move[l][0];
+            int mc = j+move[l][1];
+            //범위 내일때
+            if(0<=mr&&mr<N&&0<=mc&&mc<M) {
+                //한쪽이라도 0/1이 있다면
+                if (problem[mr][mc] >= 0) {
+                    check=true;
+                }
+            }
+        }
+        return check;
     }
 
     public static void search(int i, int j){
@@ -88,5 +108,6 @@ public class S1_7576_토마토 {
                 }
             }
         }
+
     }
 }
