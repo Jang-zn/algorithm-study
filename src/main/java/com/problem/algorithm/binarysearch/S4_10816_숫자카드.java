@@ -40,7 +40,6 @@ package com.problem.algorithm.binarysearch;
                 }else {
                     int lower = lower(value[i]);
                     int upper = upper(value[i]);
-                    System.out.println(lower+" "+upper);
                     ans[i] = upper-lower+1;
                     bw.write(ans[i]+" ");
                 }
