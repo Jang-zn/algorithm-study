@@ -1,84 +1,104 @@
 package com.problem.algorithm.priorityqueue;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.PriorityQueue;
 
 public class G5_7662_이중우선순위큐 {
 
     static int N;
+    static int T;
+    static PriorityQueue<Integer> max =new PriorityQueue<>(Collections.reverseOrder());
+    static PriorityQueue<Integer> min =new PriorityQueue<>();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         N = Integer.parseInt(br.readLine());
-        PriorityQueue<Integer> max =new PriorityQueue<>(Collections.reverseOrder());
-        PriorityQueue<Integer> min =new PriorityQueue<>();
-        for (int i = 0; i < N; i++) {
-            int n = Integer.parseInt(br.readLine());
-            if(i==0){
-                max.add(n);
-                bw.write(max.peek()+"\n");
-            }else if(i==1){
-                if(max.peek()<n){
-                    min.add(n);
-                    bw.write(max.peek()+"\n");
-                }else{
-                    min.add(max.poll());
-                    max.add(n);
-                    bw.write(max.peek()+"\n");
+        for (int n = 0; n < N; n++) {
+            T = Integer.parseInt(br.readLine());
+            for (int i = 0; i < T; i++) {
+                //명령어 확인
+                String[] order = br.readLine().split(" ");
+                String func = order[0];
+                int num = Integer.parseInt(order[1]);
+                //구현
+                switch (func) {
+                    case "I":
+                        insert(num);
+                        System.out.println("min "+min+" "+"max "+max);
+                        break;
+                    case "D":
+                        switch(num){
+                            case 1 : max.poll(); break;
+                            case -1 : min.poll(); break;
+                        }
+                        break;
                 }
+            }
+
+
+            if(max.isEmpty()&& min.isEmpty()){
+                System.out.println("EMPTY");
+            }else if(min.isEmpty()){
+                System.out.println(max.peek()+" "+max.peek());
+            }else if(max.isEmpty()){
+                System.out.println(min.peek()+" "+min.peek());
             }else{
-                int maxsize = max.size();
-                int minsize = min.size();
-                //사이즈 같을때
-                if(maxsize==minsize){
-                    //1. min보다 작음
-                    if(n<min.peek()){
+                System.out.println(max.peek()+" "+min.peek());
+            }
+        }
+    }
+
+        public static void insert(int n){
+            int minsize = min.size();
+            int maxsize = max.size();
+
+            //둘다 비었으면 min에 입력
+            if(min.isEmpty()&&max.isEmpty()) {
+                min.add(n);
+
+            //max가 비어있는 경우
+            }else if(max.isEmpty()){
+              if(min.peek()<=n){
+                  max.add(n);
+              }else{
+                  max.add(min.poll());
+                  min.add(n);
+              }
+            //사이즈가 다른경우
+            }else if(minsize!=maxsize){
+                //최소~최대 사이에 있는경우 더 작은쪽에 넣음
+                if(min.peek()<n&&n<max.peek()){
+                    if(minsize>maxsize){
                         max.add(n);
-                        bw.write(max.peek()+"\n");
-                    //2. min보다 크거나 같음
                     }else{
                         min.add(n);
-                        bw.write(min.peek()+"\n");
                     }
-                //사이즈 다를때(1개 차이날때)
+                //최소보다 작으면 min 최대보다 크면 max
                 }else{
-                    if(maxsize>minsize){
-                        //1. max min사이에 있음
-                        if(max.peek()<n&&n<min.peek()){
-                            min.add(n);
-                            bw.write(max.peek()+"\n");
-                        //2. min 뒤에 들어가는경우
-                        }else if(max.peek()<n){
-                            min.add(n);
-                            bw.write(max.peek()+"\n");
-                        //3. max 뒤에 들어가는경우
-                        }else{
-                            min.add(max.poll());
-                            max.add(n);
-                            bw.write(max.peek()+"\n");
-                        }
-                    }else{
-                        //1. max min사이에 있음
-                        if(max.peek()<n&&n<min.peek()){
-                            max.add(n);
-                            bw.write(max.peek()+"\n");
+                    if(min.peek()>=n){
+                        min.add(n);
+                    }else if(max.peek()<=n){
+                        max.add(n);
+                    }
+                }
 
-                        //2. max 뒤에 들어가는경우
-                        }else if(min.peek()>n){
-                            max.add(n);
-                            bw.write(max.peek()+"\n");
-                        //3. min 뒤에 들어가는경우
-                        }else{
-                            max.add(min.poll());
-                            min.add(n);
-                            bw.write(max.peek()+"\n");
-                        }
+            //같은경우
+            }else{
+                //최소~최대 사이에 있는경우 min에 넣음
+                if(min.peek()<n&&n<max.peek()){
+                    min.add(n);
+
+                //최소보다 작으면 min 최대보다 크면 max
+                }else{
+                    if(min.peek()>=n){
+                        min.add(n);
+                    }else if(max.peek()<=n){
+                        max.add(n);
                     }
                 }
             }
         }
-        bw.flush();
-    }
 }
