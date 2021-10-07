@@ -10,8 +10,14 @@ public class G5_7662_이중우선순위큐 {
 
     static int N;
     static int T;
+    static int dCount=0;
+    static int iCount=0;
+    static int dMax=0;
+    static int dMin=0;
+
     static PriorityQueue<Integer> max =new PriorityQueue<>(Collections.reverseOrder());
-    static PriorityQueue<Integer> min =new PriorityQueue<>();
+    static PriorityQueue<Integer> min=new PriorityQueue<>();
+
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -26,113 +32,80 @@ public class G5_7662_이중우선순위큐 {
                 //구현
                 switch (func) {
                     case "I":
-                        insert(num);
+                        iCount++;
+                        max.add(n);
+                        min.add(n);
                         break;
+
                     case "D":
-                        switch(num){
-                            case 1 : max.poll(); break;
-                            case -1 : min.poll(); break;
-                        }
+                        drop(num);
                         break;
                 }
             }
 
+            result();
+        }
+    }
 
-            if(max.isEmpty()&& min.isEmpty()){
-                System.out.println("EMPTY");
-            }else if(min.isEmpty()){
-                System.out.println(max.peek()+" "+max.peek());
-            }else if(max.isEmpty()){
-                System.out.println(min.peek()+" "+min.peek());
+    public static void drop(int n){
+        dCount++;
+        if(iCount>dCount){
+            switch (n) {
+                case 1:
+                    dMax++;
+                    max.poll();
+                    break;
+                case -1:
+                    dMin++;
+                    min.poll();
+                    break;
+            }
+        }else if(iCount==dCount&&iCount!=0&&dCount!=0){
+            if(max.peek()!=min.peek()){
+                if(dMax>dMin){
+                    dMin++;
+                    min.poll();
+                }else{
+                    dMax++;
+                    max.poll();
+                }
             }else{
-                System.out.println(max.peek()+" "+min.peek());
+                dMax++;
+                max.poll();
+            }
+        }
+
+        //다뽑았으면 초기화
+        if(dMax+dMin==iCount&&iCount!=0){
+            while(!max.isEmpty()){
+                max.poll();
+            }
+            while(!min.isEmpty()){
+                min.poll();
+            }
+            iCount=0;dCount=0;dMax=0;dMin=0;
+        }
+
+    }
+
+    public static void result() {
+        if(dCount==iCount){
+            System.out.println("EMPTY");
+        }else{
+            if(iCount-dCount>1){
+                System.out.println(max.poll()+" "+min.poll());
+            }else{
+                if(max.peek()!=min.peek()){
+                    if(dMax>dMin){
+                        System.out.println(min.peek()+" "+min.peek());
+                    }else{
+                        System.out.println(max.peek()+" "+max.peek());
+                    }
+                }else{
+                    System.out.println(max.peek()+" "+max.peek());
+                }
             }
         }
     }
 
-        public static void insert(int n){
-            int minsize = min.size();
-            int maxsize = max.size();
-
-            //둘다 비었으면 min에 입력
-            if(min.isEmpty()&&max.isEmpty()) {
-                min.add(n);
-
-            //min에만 넣고 max가 비어있는 경우
-            }else if(max.isEmpty()&&minsize==1){
-              if(min.peek()<=n){
-                  max.add(n);
-              }else {
-                  max.add(min.poll());
-                  min.add(n);
-              }
-
-            //max에만 넣고 min이 비어있는 경우
-            }else if(min.isEmpty()&&maxsize==1){
-                if(max.peek()>=n){
-                    min.add(n);
-                }else{
-                    min.add(max.poll());
-                    max.add(n);
-                }
-
-            //둘다 들어있는경우
-            }else {
-                //갯수 맞춰줌
-                if(Math.abs(maxsize-minsize)>1){
-                    clean(minsize, maxsize);
-                }
-                if(minsize!=maxsize){
-                    //최소~최대 사이에 있는경우 더 작은쪽에 넣음
-                    if(min.peek()<n&&n<max.peek()){
-                        if(minsize>maxsize){
-                            max.add(n);
-                        }else{
-                            min.add(n);
-                        }
-                        //최소보다 작으면 min 최대보다 크면 max
-                    }else{
-                        if(min.peek()>=n){
-                            min.add(n);
-                        }else if(max.peek()<=n){
-                            max.add(n);
-                        }
-                    }
-
-                    //같은경우
-                }else{
-                    //최소~최대 사이에 있는경우 min에 넣음
-                    if(min.peek()<n&&n<max.peek()){
-                        min.add(n);
-
-                        //최소보다 작으면 min 최대보다 크면 max
-                    }else{
-                        if(min.peek()>=n){
-                            min.add(n);
-                        }else if(max.peek()<=n){
-                            max.add(n);
-                        }
-                    }
-                }
-            }
-        }
-
-
-        public static void clean(int minsize, int maxsize){
-            PriorityQueue<Integer> temp = new PriorityQueue<>();
-            int count = (minsize+maxsize)/2;
-            while(!min.isEmpty()){
-                temp.add(min.poll());
-            }
-            while(!max.isEmpty()){
-                temp.add(max.poll());
-            }
-            for (int i = 1; i <= count; i++) {
-                min.add(temp.poll());
-            }
-            while(!temp.isEmpty()){
-                max.add(temp.poll());
-            }
-
-        }
 }
