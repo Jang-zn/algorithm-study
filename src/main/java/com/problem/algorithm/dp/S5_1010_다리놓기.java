@@ -18,37 +18,19 @@ public class S5_1010_다리놓기 {
             String[] temp = br.readLine().split(" ");
             N = Integer.parseInt(temp[0]);
             M = Integer.parseInt(temp[1]);
-            if(N!=1) {
-                if(N!=M) {
-                    System.out.println((solve(1, 1, M - 1))+1);
-                }else {
-                    System.out.println(1);
-                }
-            }else{
-                System.out.println(M);
-            }
+            int sol = solve();
+            System.out.println(sol);
         }
 
     }
-
-    static int solve(int before, int selected, int point){
-        if(before>=N){
-            return point;
-        }else {
-            int result = 0;
-            while (point != N - before){
-                result += solve(before + 1, selected++, point--);
-            }
-            return result;
-        }
+    public static int solve(){
+        return fact(M)/(fact(N)*fact(M-N));
     }
-
-
-
-    public static int combination(int n, int r) {
-        if(n == r || r == 0)
+    public static int fact(int n){
+        if(n==1){
             return 1;
-        else
-            return combination(n - 1, r - 1) + combination(n - 1, r);
+        }else{
+            return n*fact(n-1);
+        }
     }
 }
