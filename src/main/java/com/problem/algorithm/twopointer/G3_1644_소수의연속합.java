@@ -8,8 +8,8 @@ public class G3_1644_소수의연속합 {
     static int count;
     static int currSum;
     static ArrayList<Integer> prime = new ArrayList<Integer>();
-    //
-    static int MAX = 4000000;
+
+    static int MAX = 4001000;
     static boolean[] array = new boolean[MAX + 1];
 
 
