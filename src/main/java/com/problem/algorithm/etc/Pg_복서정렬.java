@@ -30,7 +30,7 @@ public class Pg_복서정렬 {
             this.lose = lose;
             this.moreWeight = moreWeight;
             if(win+lose!=0){
-                this.rate = win*1.0/(win+lose);
+                this.rate = (win*100.0/(win+lose));
             }else{
                 this.rate = 0;
             }
@@ -39,11 +39,11 @@ public class Pg_복서정렬 {
         @Override
         public int compareTo(boxer o) {
             if(this.rate!=o.rate) {
-                return ((int) (this.rate - o.rate));
+                return o.rate-this.rate<0?-1:1;
             }else if(this.moreWeight != o.moreWeight){
-                return (this.moreWeight - o.moreWeight);
+                return ( o.moreWeight - this.moreWeight);
             }else if(this.weight!=o.weight){
-                return (this.weight-o.weight);
+                return (o.weight - this.weight);
             }else{
                 return this.no-o.no;
             }
@@ -51,7 +51,7 @@ public class Pg_복서정렬 {
 
         @Override
         public String toString() {
-            return "["+this.no+" "+this.weight+" "+this.rate+"]";
+            return "["+this.no+" "+this.weight+" "+this.rate+" "+this.moreWeight+"]";
         }
     }
 
@@ -92,10 +92,9 @@ public class Pg_복서정렬 {
         Collections.sort(list);
         System.out.println(list);
 
-
         int[] answer = new int[list.size()];
         for(int i=0;i<list.size();i++){
-            answer[list.get(i).no-1] = i+1;
+            answer[i] = list.get(i).no;
         }
         return answer;
     }
