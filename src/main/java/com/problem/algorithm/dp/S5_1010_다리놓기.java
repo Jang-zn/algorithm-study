@@ -8,7 +8,7 @@ public class S5_1010_다리놓기 {
     static int T;
     static int N;
     static int M;
-    static int[][] dp = new int[30][30];
+    static long[][] dp = new long[30][30];
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -23,7 +23,7 @@ public class S5_1010_다리놓기 {
         bw.flush();
     }
 
-    static int combi(int n, int r) {
+    static long combi(int n, int r) {
         // 이미 탐색했던 경우 바로 반환
         if(dp[n][r] > 0) {
             return dp[n][r];
