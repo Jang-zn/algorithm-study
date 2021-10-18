@@ -17,31 +17,39 @@ public class S3_2630_색종이만들기 {
         for (int i = 1; i <= N; i++) {
             String[] row = br.readLine().split(" ");
             for (int j = 1; j <=N ; j++) {
-                problem[i][j] = Integer.parseInt(row[j]);
+                problem[i][j] = Integer.parseInt(row[j-1]);
             }
         }
         solve(1,N,1,N);
+        System.out.println(white);
+        System.out.println(blue);
     }
 
     public static void solve(int xstart, int xend, int ystart, int yend){
-        if(check(start,end)){
-            if(problem[start][start]==1){
+        if(check(xstart,xend,ystart,yend)){
+            if(problem[xstart][ystart]==1){
                 blue++;
+
             }else{
                 white++;
+
             }
         }else{
-            solve(start,end/2);
-            solve(end/2+1,end);
-            solve(end,end/2);
-            solve(start,end/2);
+                //2사분면
+                solve(xstart, (xstart+xend)/2, ystart, (ystart+yend)/2);
+                //1사분면
+                solve((xstart+xend)/2 + 1, xend, ystart, (ystart+yend)/2);
+                //3사분면
+                solve(xstart, (xstart+xend)/2, (ystart+yend)/2 + 1, yend);
+                //4사분면
+                solve((xstart+xend)/2 + 1, xend, (ystart+yend)/2 + 1, yend);
         }
     }
 
     public static boolean check(int xstart, int xend, int ystart, int yend){
         int check = problem[xstart][ystart];
-        for (int i = ystart; i <= yend; i++) {
-            for (int j = xstart; j <= xend; j++) {
+        for (int i = xstart; i <= xend; i++) {
+            for (int j = ystart; j <= yend; j++) {
                 if(check!=problem[i][j]){
                     return false;
                 }
