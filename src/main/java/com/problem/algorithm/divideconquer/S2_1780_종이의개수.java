@@ -21,45 +21,43 @@ public class S2_1780_종이의개수 {
                 problem[i][j] = Integer.parseInt(row[j-1]);
             }
         }
-        solve(1,N,1,N);
+        solve(1,1,N);
         System.out.println(first);
         System.out.println(second);
         System.out.println(third);
     }
 
-    public static void solve(int xstart, int xend, int ystart, int yend){
-        if(check(xstart,xend,ystart,yend)){
-            if(problem[xstart][ystart]==-1){
+    public static void solve(int i, int j, int length){
+        if(check(i, j, length)){
+            if(problem[i][j]==-1){
                 first++;
-
-            }else if(problem[xstart][ystart]==0){
+            }else if(problem[i][j]==0){
                 second++;
-
             }else{
                 third++;
             }
         }else{
-            int xx = (xend-xstart)/3+1;
-            int yy = (yend-ystart)/3+1;
+            int nextLength = length/3;
             // 1 2 3
-            solve(xstart,xx,ystart,yy);
-            solve(xstart,xx,ystart+yy,2*yy);
-            solve(xstart,xx,ystart+2*yy,yend);
+            solve(i,j,nextLength);
+            solve(i,j+nextLength,nextLength);
+            solve(i,j+2*nextLength, nextLength);
             // 4 5 6
-            solve(xstart+xx,2*xx,ystart,yy);
-            solve(xstart+xx,2*xx,ystart+yy,2*yy);
-            solve(xstart+xx,2*xx,ystart+2*yy,yend);
+            solve(i+nextLength,j,nextLength);
+            solve(i+nextLength,j+nextLength,nextLength);
+            solve(i+nextLength,j+2*nextLength,nextLength);
             // 7 8 9
-            solve(xstart+2*xx,xend,ystart,yy);
-            solve(xstart+2*xx,xend,ystart+yy,2*yy);
-            solve(xstart+2*xx,xend,ystart+2*yy,yend);
+            solve(i+2*nextLength,j,nextLength);
+            solve(i+2*nextLength,j+nextLength,nextLength);
+            solve(i+2*nextLength,j+2*nextLength,nextLength);
+
         }
     }
 
-    public static boolean check(int xstart, int xend, int ystart, int yend){
-        int check = problem[xstart][ystart];
-        for (int i = xstart; i <= xend; i++) {
-            for (int j = ystart; j <= yend; j++) {
+    public static boolean check(int row,int col,int length){
+        int check = problem[row][col];
+        for (int i = row; i < row+length; i++) {
+            for (int j = col; j < col+length; j++) {
                 if(check!=problem[i][j]){
                     return false;
                 }
