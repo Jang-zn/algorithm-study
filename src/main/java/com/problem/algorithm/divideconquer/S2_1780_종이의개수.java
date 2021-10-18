@@ -41,7 +41,6 @@ public class S2_1780_종이의개수 {
         }else{
             int xx = (xend-xstart)/3+1;
             int yy = (yend-ystart)/3+1;
-
             // 1 2 3
             solve(xstart,xx,ystart,yy);
             solve(xstart,xx,ystart+yy,2*yy);
